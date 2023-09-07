@@ -1,8 +1,8 @@
 /**************************************************************
-* Class:  CSC-415-0# Summer 2021
-* Name: Robert Bierman
-* Student ID: 
-* GitHub Name: bierman
+* Class:  CSC-415-03 Fall 2023
+* Name: Juan Estrada
+* Student ID: 923058731
+* GitHub Name: jjestrada2
 * Project: Assignment 2 – Command Line Arguments
 *
 * File: assignment2.h

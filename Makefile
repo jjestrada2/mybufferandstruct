@@ -36,8 +36,8 @@
 # Set your First name and your Last name 
 # Ensure there no spaces before or after your name
 
-FIRSTNAME=
-LASTNAME=
+FIRSTNAME=Juan
+LASTNAME=Estrada
 
 ##########################################################################
 # Do NOT modify anything below this line
