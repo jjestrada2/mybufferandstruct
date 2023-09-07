@@ -5,9 +5,22 @@
 * GitHub Name: jjestrada2
 * Project: Assignment 2 – Command Line Arguments
 *
-* File: assignment2.h
+* File: Estrada_Juan_HW2_main.c
 *
-* Description: To show how to use ...
+* Description: In the main function, command-line arguments are 
+used to populate a personalInfo structure with personal details, 
+such as the first and last name, student ID, grade level, knowl-
+edge of various programming languages, and a message. These deta-
+ils are then written using the writePersonalInfo function. The 
+program proceeds to allocate a buffer and processes a series of 
+strings obtained from the getNext function. It copies these strings
+into the buffer, ensuring that the buffer does not exceed a specified 
+block size. When the buffer is full or all strings have been 
+processed, it commits the data using the commitBlock function. 
+The final step is to call the checkIt function to validate the
+stored personal information. After freeing allocated memory, 
+the function returns an exit code based on the success of the 
+checkIt function, providing feedback on the execution of the program.
 *
 **************************************************************/
 #include <assignment2.h>
@@ -49,38 +62,44 @@ int main( int argc, char* argv[]){
         printf("Error failed to write personal information. \n");
     }
 
-    //Allocate a buffer
+   //Allocate a buffer
     char *buffer = (char*)malloc(BLOCK_SIZE);
     const char* nextString;
     size_t indx = 0;
 
+
     //Process and commit strings
     while((nextString = getNext()) != NULL){
+    
         size_t stringLength = strlen(nextString);
         // If current string fits in the buffer copy it
         if(indx + stringLength <= BLOCK_SIZE){
-            memcpy(buffer,nextString,stringLength);
+            memcpy(buffer + indx,nextString,stringLength);
             indx += stringLength;
            
         }else{
+            
         // If the current string doesn't fit 
             size_t spaceLeft= BLOCK_SIZE - indx; 
-            memcpy(buffer,nextString, stringLength - spaceLeft);
+            memcpy(buffer+indx ,nextString, spaceLeft);
            
             commitBlock(buffer);
+            indx = 0;
             // Copy the remaining portion of nextString to the buffer from indx 0
-            size_t remainingLength = stringLength - spaceLeft;
-            memcpy(buffer, nextString + remainingLength, remainingLength);
-            indx = remainingLength;     
+            
+            memcpy(buffer+indx, nextString + spaceLeft, stringLength-spaceLeft);
+            indx = stringLength-spaceLeft;    
         
         }
 
+
     }
 
+    if (indx != 0) {
+    commitBlock(buffer);
+}
     
     int solution = checkIt();
-    free(myInfo->firstName);
-    free(myInfo->lastName);
     free(myInfo);
     free(buffer);
     //return 0 successful execution
