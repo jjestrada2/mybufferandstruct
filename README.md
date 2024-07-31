@@ -1,80 +1,105 @@
-[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-24ddc0f5d75046c5622901739e7c5dd533143b0c8e959d652212380cedb1ea36.svg)](https://classroom.github.com/a/wDv35_mK)
-# CSC415-Assignment2-BufferAndStruct
+# Byte Data Transformation 📝
 
-**Assignment 2 – Buffering and Structures**
+## Description🤗
 
-Welcome to your second homework assignment.  
+This assignment involves reviewing a provided header file (`assignment2.h`), allocating and populating a `personalInfo` structure, and transforming byte data into block data. The assignment also includes the use of several pre-implemented functions provided in `assignment2.o`.
 
-Let me remind you of the expectations.  Code should be neat, well documented.  Variables should have meaningful names and be in a consistent format (I do not care if you use camelCase or under_scores in variables but be consistent.  Maximum line length in your code is 100 characters.  In addition, each file should have a standard header as defined below.
+## Getting Started🙌
 
-```
-/**************************************************************
-* Class:  CSC-415-0# Spring 2023
-* Name:
-* Student ID:
-* GitHub UserID:
-* Project: Assignment 2 – Stucture in Memory and Buffering
-*
-* File: <name of this file>
-*
-* Description:
-*
-**************************************************************/
-```
+### Prerequisites
 
-This is an INDIVIDUAL assignment.  You can (and should) work in groups to research how to do the assignment, but each person should code their own version and make their own submission.
+- **C Compiler (GCC)**
+- **Make**
 
-This assignment will give you experience using structures, pointers, character strings, enumerated types, bitmap fields, and buffering data into blocks.  The files assignment2.h and assignment2.o are required for this assignment.  The functions listed in assignment2.h (`writePersonalInfo`, `getNext`, `commitBlock`, and `checkIt`) have been written for you and are the functions in assignment2.o (you do not have the source code that builds that object file).  **Do not** re-implement those functions.
+### Files Provided🦸‍♂️
 
-There will be at least three arguments, but there may be more.  Do not limit the number.
+- `assignment2.h`: Header file containing `#define` statements for different computer languages, the `personalInfo` structure, and function prototypes.
+- `assignment2.o`: Object file containing the implementations of the required functions.
 
-**Step one** - read the assignment carefully and fully.  Do each step and don't read more into it then is there.
+### Project Steps🏋️
 
-**Step two** of this assignment is to review the provided header file assignmet2.h.  You will see a large number of #define statments the represent different computer lanaguages. Then there is a stucture called personalInfo.  This is the structure you will allocate and populate.  Next there is a #define of BLOCK_SIZE set to 256 this is going to be your buffer size to transform byte data into block data.  Finally there are the prototypes for 4 functions that you will need and are described in the steps below.  Note that the functions are implemented in provided assignment2.o file, you do not implement them.
+#### Step 1: Review the Header File
 
-**Step three** is to remember some of the rules.  Name your c file according to our standard of `lastname_firstname_HW1_main.c`, edit the Makefile to enter your FIRST and LAST name (this Makefile is a little different then the first one - do not change anything other than the variables FIRSTNAME and LASTNAME).  Make sure to comment your code, have the standard header.  Remember that for every malloc, there must also be a corresponding free.  Use printf's to debug your program.  In keeping code neat and readable, lines in your program (including commments) should be kept to about 80 characters long but never more than 100 characters. 
+- `#define` statements represent different computer languages.
+- `personalInfo` structure contains fields to store personal information.
+- `#define BLOCK_SIZE 256` sets the buffer size for transforming byte data into block data.
+- Four function prototypes provided (implemented in `assignment2.o`).
 
-*Now what is the coding portion of this assignment...*
+#### Step 2: Makefile
 
-**Step four** is to allocate (using malloc) an instantiation of the personInfo structure and to populate it.  The firstName and the lastName are populated from the 1st and second command line argument.  You will then assign your student ID to the studentID field, you will populate the level (gradelevel) appropriately.  You will then populate the languages field.  To do so, specify every language you have Knowledge of and there must be at least three (by definition, with the prerequisites for the course you should at least know some Java, C++, some assembler and of course now C.  But, include all you have knowledge of.  The last part of populating the structure is to copy the third command line parameter to the message field.  Do note the length of the message field.
+- Edit the Makefile to enter your FIRST and LAST name in the variables `FIRSTNAME` and `LASTNAME`.
+- Use `malloc` and `free` for dynamic memory allocation.
 
-**Step five** is to "write" your personal information structure by calling `writePersonalInfo` which is one of the function prototypes in the assignment2.h file.  The return value from the function is 0 if it succeeds.
+#### Step 3: Allocating and Populating `personalInfo`
 
-**Step six** involves getting a series of C stings (you do not know how many or how long each one it or what it contains).  You get these strings by calling the function `getNext`.  The return value is a char * (C string).  If the return value is NULL then you have finished.  You will copy the contents of each of those strings into a buffer (block) that is BLOCK_SIZE (use malloc to allocate the buffer), as the buffer is filled you will commit the buffer by calling `commitBlock` passing in the pointer to your BLOCK_SIZE buffer.  Note:  You must copy the data into the buffer in chunks using memcpy (not character by character).
+- Allocate memory for `personalInfo` structure using `malloc`.
+- Populate the structure fields:
+  - `firstName` and `lastName` from the first and second command line arguments.
+  - `studentID` with your student ID.
+  - `level` (grade level) appropriately.
+  - `languages` field with at least three languages (Java, C++, assembler, C).
+  - Copy the third command line parameter to the `message` field (ensure message length).
 
-**Step seven** if the final coding step.  Call the function `checkIt`, then exit main returning the same value as returned from `checkIt`.
+#### Step 4: Writing Personal Information
 
-**Step eight** is dependent on `checkIt` running correctly and displays some binary data as a hexdump which is the personalInfo structure.  You are to describe what each element is, use the structure as reference and show the values and how to read those values.  i.e. which bytes are the student ID, what is it's hexadecimal value and if that is converted to decimal is it correct?  You are to prove that each value in the structure is correct and why it is correct.  The purpose is so that you can be sure that what you thought should be written is actually written.  Use color highlights and start and end addresses to describe each element from the hexdump output.
+- Call `writePersonalInfo` function to write the populated `personalInfo` structure.
+- Check the return value; it should be `0` if it succeeds.
 
-The following is an example (with incorrect selections) to give you the idea of what your analysis should look like.
+#### Step 5: Handling C Strings
 
-![image of analysis](Images/Assignment2AnalysisImage.png)
+- Call `getNext` function to get a series of C strings.
+- Allocate a buffer of size `BLOCK_SIZE` using `malloc`.
+- Copy the contents of each string into the buffer using `memcpy`.
+- Commit the buffer by calling `commitBlock` with the buffer pointer.
+- Continue until `getNext` returns `NULL`.
 
-Do a writeup (using the template) in PDF format that includes a description of what you did and the compilation and execution output from your program and an _analysis_ of the output as specified in step eight.
+#### Step 6: Final Step
+
+- Call the `checkIt` function.
+- Exit `main` returning the value returned from `checkIt`.
+
+#### Step 7: Hexdump Analysis
+
+- If `checkIt` runs correctly, it will display some binary data as a hexdump.
+- Describe each element in the hexdump:
+- ![image of analysis](Images/Assignment2AnalysisImage.png)
+
+ 
+
+### Compilation and Execution🐢
+
+1. **Clone the Repository:**
+
+    ```bash
+    git clone <repository_url>
+    cd <repository_directory>
+    ```
+
+2. **Edit Makefile:**
+
+    Edit `Makefile` to include your first and last name.
+
+    ```makefile
+    FIRSTNAME = YourFirstName
+    LASTNAME = YourLastName
+    ```
+
+3. **Compile the Project:**
+
+    ```bash
+    make
+    ```
+
+4. **Run the Program:**
+
+    ```bash
+    ./lastname_firstname_HW1_main <firstName> <lastName> <message>
+    ```
 
 
-You must submit your source code file(s) and Makefile, along with a writeup in PDF in GitHub, and the PDF also in Canvas.
-
-Your main program filenames should be `<lastname>_<firstname>HW<#>_<optional>.<proper extension>`
 
 
-**Rubric**
-
-| Grade Item                    | Grade Points                                  |
-|:------------------------------|----------------------------------------------:|
-| Standard Header               |   2                                           |
-| Command Arguments             |   5                                           |
-| Proper use of malloc and free |  10                                           |
-| Proper population of personalInfo           |  10                             |
-| Proper buffering              |  20                                           |
-| Proper use of KNOWLEDGE #defines  |   5                                           |
-| Correct Output                |   5                                           |
-| Code Comments                 |   5                                           |
-| Writeup                       |   8 (Description, Compilation, Sample Output) |
-| Writeup analysis              |  10                                           |
-
-
-## Sample Output:
+## Sample Output:🎮
 
 This output is just what is printed from `checkIt` You can also print out the structure and information
 prior to calling `checkIt`.
@@ -101,3 +126,15 @@ END-OF-ASSIGNMENT
 000060: 74 69 6E 65 6E 74 2C 20  61 20 6E 65 77 20 6E 61 | time,   a new ba
 000070: 74 69 6F 6E 2C 20 63 6F  6E 63 65 69 76 65 64 20 | ll,             
 ```
+## License📜
+
+This project is licensed under the MIT License - see the [LICENSE](https://choosealicense.com/licenses/mit/) file for details.
+
+## Credits🔥
+
+- [Juan Estrada](https://github.com/jjestrada2) - Developer of this project.
+
+## Contact🦻
+
+For support or inquiries, please contact [Juan Estrada](mailto:juan5801331@gmail.com).
+
